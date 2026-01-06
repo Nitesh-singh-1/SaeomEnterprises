@@ -1,10 +1,36 @@
 "use client";
 import { useRouter } from "next/navigation";
+import { login } from "@/lib/services/authService";
+import { useState } from "react";
 export default function AdminLoginPage() {
     const router = useRouter();
-    const handlesignin = () => {
-        console.log('Page.tsx is calling');
-        router.push('/admin/categories');
+    const [logininfo, setloginInfo] = useState({
+        username: "",
+        password: ""
+    })
+       const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
+    const { name, value } = e.target;
+    setloginInfo(prev => ({ ...prev, [name]: value }));
+  };
+    const handlesignin = async () => {
+        try {
+            const payload = {
+                username: logininfo.username,
+                password: logininfo.password
+            }
+            const response = await login(payload);
+            if (response.response_code === 1) {
+                router.push("/admin/categories");
+            }
+            else {
+                alert(response.response_message);
+            }
+        }
+        catch (ex) {
+            alert("Something went wrong. Please try again.");
+        }
     }
 
     return (
@@ -57,7 +83,10 @@ export default function AdminLoginPage() {
                             </label>
                             <input
                                 type="email"
-                                placeholder="admin@company.com"
+                                name="username"
+                                onChange={handleChange}
+                                value={logininfo.username}
+                                placeholder="Ennter Username"
                                 className="w-full rounded-lg border border-gray-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-600"
                             />
                         </div>
@@ -77,6 +106,9 @@ export default function AdminLoginPage() {
                             </div>
                             <input
                                 type="password"
+                                name="password"
+                                value={logininfo.password}
+                                onChange={handleChange}
                                 placeholder="••••••••"
                                 className="w-full rounded-lg border border-gray-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-600"
                             />
