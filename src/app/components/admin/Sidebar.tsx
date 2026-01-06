@@ -1,8 +1,28 @@
 "use client";
 
+import { logout } from "@/lib/services/fileservice";
 import Link from "next/link";
-
+import { useRouter } from "next/navigation";
 export default function Sidebar() {
+const router = useRouter();
+  const handleLogout = async () => {
+    try{
+      const response:any = await logout();
+      if(response.response_code ===1){
+        localStorage.removeItem("token");
+        router.replace("/");
+        alert("Logout Successful");
+
+      }
+      else{
+        alert("something went wrong");
+      }
+    }
+    catch(ex){
+
+    }
+  }
+
   return (
     <aside className="w-64 min-h-screen bg-white border-r flex flex-col justify-between">
       
@@ -28,7 +48,7 @@ export default function Sidebar() {
             🗂 Categories
           </Link>
 
-          <Link href="/admin/products" className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100">
+          <Link href="/admin/product" className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100">
             📦 Products
           </Link>
 
@@ -44,7 +64,7 @@ export default function Sidebar() {
           ⚙ Settings
         </Link>
 
-        <button className="flex items-center gap-3 px-3 py-2 rounded-lg text-red-600 hover:bg-red-50 w-full">
+        <button onClick={handleLogout} className="flex items-center gap-3 px-3 py-2 rounded-lg text-red-600 hover:bg-red-50 w-full">
           🚪 Logout
         </button>
       </div>

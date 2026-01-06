@@ -1,4 +1,4 @@
-import { postPublic, postProtected } from "./baseService";
+import { postPublic, postProtected, postProtectedFormData } from "./baseService";
 import { Category } from "@/app/contactus/page";
 // 🔓 User-facing / public
 export function getCategories(categoryStatus?: "actv" | "dactv") {
@@ -17,3 +17,16 @@ export function addCategory(payload:any){
 export function addEnquiry(payload:any){
     return postPublic("api/Enquiry/AddEnquiry",payload);
 }
+
+export const logout = async () => {
+  return postProtected("api/auth/logout");
+};
+
+export const getAllProduct = async () =>{
+    return postPublic("api/Product/getAllProduct");
+}
+
+export function AddProductSave(payload:FormData){
+    return postProtectedFormData ("api/Product",payload);
+}
+

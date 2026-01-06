@@ -12,6 +12,17 @@ export type CategoryColumn = {
   isActive: boolean;
 }
 
+export type ProductColumn={
+  productId: number;
+  productName: string;
+  productDescription:string;
+  //categoryId:number;
+  //categoryName:string;
+  isActive: boolean;
+  //createdOn:string;
+  //primaryImage:string;
+}
+
 export const employeeColumns: ColumnDef<Employee>[] = [
   {
     accessorKey: "employeeName",
@@ -61,6 +72,50 @@ export const categoryColumns: ColumnDef<CategoryColumn>[] = [
             console.log(
               "Toggle category:",
               row.original.categoryId,
+              !isActive
+            )
+          }
+          className={`px-3 py-1 rounded-full text-xs font-semibold transition
+            ${
+              isActive
+                ? "bg-green-100 text-green-700"
+                : "bg-red-100 text-red-700"
+            }`}
+        >
+          {isActive ? "Active" : "Inactive"}
+        </button>
+      );
+    },
+  },
+];
+
+export const productColumn: ColumnDef<ProductColumn>[] = [
+  {
+    accessorKey: "productId",
+    header: "Sr No",
+    cell: ({ row }) => row.index + 1, // serial number
+  },
+  {
+    accessorKey: "productName",
+    header: "Product Name",
+  },
+  {
+accessorKey:"productDescription",
+header:"Description",
+  },
+
+  {
+    id: "action",
+    header: "Action",
+    cell: ({ row }) => {
+      const isActive = row.original.isActive;
+
+      return (
+        <button
+          onClick={() =>
+            console.log(
+              "Toggle category:",
+              row.original.productId,
               !isActive
             )
           }

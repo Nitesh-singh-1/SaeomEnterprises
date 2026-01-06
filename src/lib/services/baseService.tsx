@@ -26,10 +26,16 @@ export async function postProtected<T>(
   endpoint: string,
   body?: any
 ): Promise<T> {
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    throw new Error("No auth token found");
+  }
+
   const res = await fetch(`${API_BASE_URL}${endpoint}`, {
     method: "POST",
-    credentials: "include", // sends JWT cookie
     headers: {
+      "Authorization": `Bearer ${token}`,
       "Content-Type": "application/json",
     },
     body: body ? JSON.stringify(body) : undefined,
@@ -46,3 +52,29 @@ export async function postProtected<T>(
 
   return res.json();
 }
+
+export async function postProtectedFormData<T>(
+  endpoint: string,
+  formData: FormData
+): Promise<T> {
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    throw new Error("No auth token found");
+  }
+
+  const res = await fetch(`${API_BASE_URL}${endpoint}`, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      // ❌ DO NOT set Content-Type here
+    },
+    body: formData,
+  });
+
+  if (res.status === 401) throw new Error("Unauthorized");
+  if (!res.ok) throw new Error(await res.text());
+
+  return res.json();
+}
+

@@ -22,6 +22,7 @@ export default function AdminLoginPage() {
             }
             const response = await login(payload);
             if (response.response_code === 1) {
+                localStorage.setItem("token", response.data.token);
                 router.push("/admin/categories");
             }
             else {
