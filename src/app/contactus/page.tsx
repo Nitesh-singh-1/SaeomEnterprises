@@ -1,8 +1,35 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Header from "../components/Header";
+import { postPublic } from "@/lib/services/baseService";
+import { getCategories } from "@/lib/services/fileservice";
+
+export interface Category {
+  categoryId: number;
+  categoryName: string;
+  isActive: boolean;
+}
 
 export default function ContactPage() {
+const [categories, setCategories] = useState<Category[]>([]);
+const [selectedCategoryId, setSelectedCategoryId] = useState<number>(0);
+
+
+  useEffect(()=>{
+    const getAllCategory = async ()=>{
+      try{
+        const response = await getCategories("actv");
+        console.log(response);
+        setCategories(response);
+      }
+      catch(ex){
+
+      }
+    };
+    getAllCategory();
+  },[])
+
   return (
     <div>
     <Header />
@@ -35,7 +62,7 @@ export default function ContactPage() {
                 </label>
                 <input
                   type="text"
-                  placeholder="John Doe"
+                  placeholder="Enter Full Name"
                   className="w-full rounded-lg border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary"
                 />
               </div>
@@ -47,7 +74,7 @@ export default function ContactPage() {
                 </label>
                 <input
                   type="email"
-                  placeholder="john@company.com"
+                  placeholder="Enter Email"
                   className="w-full rounded-lg border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary"
                 />
               </div>
@@ -59,7 +86,7 @@ export default function ContactPage() {
                 </label>
                 <input
                   type="tel"
-                  placeholder="+1 (555) 000-0000"
+                  placeholder="Enter Mobile"
                   className="w-full rounded-lg border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary"
                 />
               </div>
@@ -71,7 +98,7 @@ export default function ContactPage() {
                 </label>
                 <input
                   type="text"
-                  placeholder="Your Company Ltd."
+                  placeholder="Enter Company Name"
                   className="w-full rounded-lg border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary"
                 />
               </div>
@@ -82,14 +109,18 @@ export default function ContactPage() {
                   Interested Product
                 </label>
                 <select
-                  className="w-full rounded-lg border border-gray-200 px-4 py-3 bg-white focus:outline-none focus:ring-2 focus:ring-primary"
-                >
-                  <option>Select a structure type...</option>
-                  <option>Portable Cabins</option>
-                  <option>Site Offices</option>
-                  <option>Storage Containers</option>
-                  <option>Custom Structures</option>
-                </select>
+    value={selectedCategoryId}
+    onChange={(e) => setSelectedCategoryId(Number(e.target.value))}
+    className="w-full rounded-lg border border-gray-200 px-4 py-3 bg-white focus:outline-none focus:ring-2 focus:ring-primary"
+  >
+    <option value={0}>Select a structure type...</option>
+
+    {categories.map((cat) => (
+      <option key={cat.categoryId} value={cat.categoryId}>
+        {cat.categoryName}
+      </option>
+    ))}
+  </select>
               </div>
 
               {/* DETAILS */}
