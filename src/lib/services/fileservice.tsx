@@ -9,3 +9,7 @@ export function getCategories(categoryStatus?: "actv" | "dactv") {
 export function getCategoryById(categoryID: number) {
   return postProtected("/getcategorybyID", { categoryID });
 }
+
+export function addEnquiry(payload:any){
+    return postPublic("api/Enquiry/AddEnquiry",payload);
+}

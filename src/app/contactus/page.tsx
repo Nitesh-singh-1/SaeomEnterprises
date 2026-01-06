@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Header from "../components/Header";
 import { postPublic } from "@/lib/services/baseService";
-import { getCategories } from "@/lib/services/fileservice";
+import { getCategories,addEnquiry } from "@/lib/services/fileservice";
 
 export interface Category {
   categoryId: number;
@@ -14,6 +14,15 @@ export interface Category {
 export default function ContactPage() {
 const [categories, setCategories] = useState<Category[]>([]);
 const [selectedCategoryId, setSelectedCategoryId] = useState<number>(0);
+
+  const [form, setForm] = useState({
+    fullName: "",
+    email: "",
+    phone: "",
+    company: "",
+    categoryId: 0,
+    message: "",
+  });
 
 
   useEffect(()=>{
@@ -29,6 +38,48 @@ const [selectedCategoryId, setSelectedCategoryId] = useState<number>(0);
     };
     getAllCategory();
   },[])
+   const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
+    const { name, value } = e.target;
+    setForm(prev => ({ ...prev, [name]: value }));
+  };
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+
+  if (!form.categoryId) {
+    alert("Please select a product");
+    return;
+  }
+
+  const payload = {
+    FullName: form.fullName,
+    ContactNumber: form.phone,
+    Email: form.email,
+    Company: form.company,
+    ProductCategoryID: form.categoryId,
+    QueryMade: form.message,
+  };
+  console.log('contact-Payload',payload);
+  try {
+    const response = await addEnquiry(payload);
+    console.log("Enquiry submitted", response);
+
+    alert("Your enquiry has been sent successfully!");
+
+    // Optional: reset form
+    setForm({
+      fullName: "",
+      email: "",
+      phone: "",
+      company: "",
+      categoryId: 0,
+      message: "",
+    });
+  } catch (err: any) {
+    alert(err.message || "Failed to send enquiry");
+  }
+};
 
   return (
     <div>
@@ -62,7 +113,10 @@ const [selectedCategoryId, setSelectedCategoryId] = useState<number>(0);
                 </label>
                 <input
                   type="text"
+                  name="fullName"
+                  value={form.fullName}
                   placeholder="Enter Full Name"
+                  onChange={handleChange}
                   className="w-full rounded-lg border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary"
                 />
               </div>
@@ -74,6 +128,9 @@ const [selectedCategoryId, setSelectedCategoryId] = useState<number>(0);
                 </label>
                 <input
                   type="email"
+                  name="email"
+                  value={form.email}
+                  onChange={handleChange}
                   placeholder="Enter Email"
                   className="w-full rounded-lg border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary"
                 />
@@ -86,6 +143,9 @@ const [selectedCategoryId, setSelectedCategoryId] = useState<number>(0);
                 </label>
                 <input
                   type="tel"
+                  value={form.phone}
+                  name="phone"
+                  onChange={handleChange}
                   placeholder="Enter Mobile"
                   className="w-full rounded-lg border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary"
                 />
@@ -98,6 +158,9 @@ const [selectedCategoryId, setSelectedCategoryId] = useState<number>(0);
                 </label>
                 <input
                   type="text"
+                  value={form.company}
+                  name="company"
+                  onChange={handleChange}
                   placeholder="Enter Company Name"
                   className="w-full rounded-lg border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary"
                 />
@@ -109,8 +172,10 @@ const [selectedCategoryId, setSelectedCategoryId] = useState<number>(0);
                   Interested Product
                 </label>
                 <select
-    value={selectedCategoryId}
-    onChange={(e) => setSelectedCategoryId(Number(e.target.value))}
+    value={form.categoryId}
+    name="categoryId"    
+    // onChange={(e) => setSelectedCategoryId(Number(e.target.value))}
+    onChange={handleChange}
     className="w-full rounded-lg border border-gray-200 px-4 py-3 bg-white focus:outline-none focus:ring-2 focus:ring-primary"
   >
     <option value={0}>Select a structure type...</option>
@@ -130,6 +195,9 @@ const [selectedCategoryId, setSelectedCategoryId] = useState<number>(0);
                 </label>
                 <textarea
                   rows={5}
+                  value={form.message}
+                  name="message"
+                  onChange={handleChange}
                   placeholder="Tell us about your requirements, dimensions, or specific needs..."
                   className="w-full rounded-lg border border-gray-200 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary resize-none"
                 />
@@ -139,6 +207,7 @@ const [selectedCategoryId, setSelectedCategoryId] = useState<number>(0);
               <div className="md:col-span-2">
                 <button
                   type="submit"
+                  onClick={handleSubmit}
                   className="inline-flex items-center gap-2 bg-blue-700 text-white font-bold px-8 py-3 rounded-lg hover:bg-blue-700 transition"
                 >
                   Send Message →
