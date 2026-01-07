@@ -2,30 +2,37 @@
 
 import { logout } from "@/lib/services/fileservice";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+
 export default function Sidebar() {
-const router = useRouter();
+  const router = useRouter();
+  const pathname = usePathname();
+
   const handleLogout = async () => {
-    try{
-      const response:any = await logout();
-      if(response.response_code ===1){
+    try {
+      const response: any = await logout();
+      if (response.response_code === 1) {
         localStorage.removeItem("token");
         router.replace("/");
         alert("Logout Successful");
-
+      } else {
+        alert("Something went wrong");
       }
-      else{
-        alert("something went wrong");
-      }
+    } catch (ex) {
+      alert("Logout failed");
     }
-    catch(ex){
+  };
 
-    }
-  }
+  const navItemClass = (path: string) =>
+    `flex items-center gap-3 px-3 py-2 rounded-lg transition
+     ${
+       pathname === path
+         ? "bg-blue-50 text-blue-600 font-semibold"
+         : "hover:bg-gray-100 text-gray-700"
+     }`;
 
   return (
     <aside className="w-64 min-h-screen bg-white border-r flex flex-col justify-between">
-      
       {/* LOGO */}
       <div>
         <div className="px-6 py-5 flex items-center gap-3 border-b">
@@ -37,22 +44,19 @@ const router = useRouter();
 
         {/* NAV */}
         <nav className="px-4 py-6 space-y-2 text-sm">
-          <Link href="/admin/dashboard" className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100">
+          <Link href="/admin/dashboard" className={navItemClass("/admin/dashboard")}>
             📊 Dashboard
           </Link>
 
-          <Link
-            href="/admin/categories"
-            className="flex items-center gap-3 px-3 py-2 rounded-lg bg-blue-50 text-blue-600 font-semibold"
-          >
+          <Link href="/admin/categories" className={navItemClass("/admin/categories")}>
             🗂 Categories
           </Link>
 
-          <Link href="/admin/product" className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100">
+          <Link href="/admin/product" className={navItemClass("/admin/product")}>
             📦 Products
           </Link>
 
-          <Link href="/admin/customers" className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100">
+          <Link href="/admin/customers" className={navItemClass("/admin/customers")}>
             👥 Customers
           </Link>
         </nav>
@@ -60,11 +64,14 @@ const router = useRouter();
 
       {/* FOOTER */}
       <div className="px-4 py-6 border-t space-y-3 text-sm">
-        <Link href="/admin/settings" className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100">
+        <Link href="/admin/settings" className={navItemClass("/admin/settings")}>
           ⚙ Settings
         </Link>
 
-        <button onClick={handleLogout} className="flex items-center gap-3 px-3 py-2 rounded-lg text-red-600 hover:bg-red-50 w-full">
+        <button
+          onClick={handleLogout}
+          className="flex items-center gap-3 px-3 py-2 rounded-lg text-red-600 hover:bg-red-50 w-full"
+        >
           🚪 Logout
         </button>
       </div>

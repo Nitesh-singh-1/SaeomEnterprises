@@ -1,5 +1,6 @@
 import { ColumnDef } from "@tanstack/react-table";
-
+import { StatusSwitch } from "@/components/ui/StatusToggle";
+import { useState } from "react";
 export type Employee = {
   id: number;
   employeeName: string;
@@ -54,7 +55,7 @@ export const categoryColumns: ColumnDef<CategoryColumn>[] = [
   {
     accessorKey: "categoryId",
     header: "Sr No",
-    cell: ({ row }) => row.index + 1, // serial number
+    cell: ({ row }) => row.index + 1,
   },
   {
     accessorKey: "categoryName",
@@ -62,28 +63,28 @@ export const categoryColumns: ColumnDef<CategoryColumn>[] = [
   },
   {
     id: "action",
-    header: "Action",
+    header: "Status",
     cell: ({ row }) => {
-      const isActive = row.original.isActive;
+      const [isActive, setIsActive] = useState(row.original.isActive);
 
       return (
-        <button
-          onClick={() =>
+        <StatusSwitch
+          checked={isActive}
+          label={isActive ? "Active" : "Inactive"}
+          onChange={() => {
+            const newValue = !isActive;
+            setIsActive(newValue); // ✅ toggle state
+
             console.log(
-              "Toggle category:",
+              "Toggle Category:",
               row.original.categoryId,
-              !isActive
-            )
-          }
-          className={`px-3 py-1 rounded-full text-xs font-semibold transition
-            ${
-              isActive
-                ? "bg-green-100 text-green-700"
-                : "bg-red-100 text-red-700"
-            }`}
-        >
-          {isActive ? "Active" : "Inactive"}
-        </button>
+              newValue
+            );
+
+            // 🔌 API call later
+            // updateCategoryStatus(row.original.categoryId, newValue)
+          }}
+        />
       );
     },
   },
@@ -107,27 +108,27 @@ header:"Description",
   {
     id: "action",
     header: "Action",
-    cell: ({ row }) => {
-      const isActive = row.original.isActive;
+cell: ({ row }) => {
+      const [isActive, setIsActive] = useState(row.original.isActive);
 
       return (
-        <button
-          onClick={() =>
+        <StatusSwitch
+          checked={isActive}
+          label={isActive ? "Active" : "Inactive"}
+          onChange={() => {
+            const newValue = !isActive;
+            setIsActive(newValue); // ✅ toggle state
+
             console.log(
-              "Toggle category:",
+              "Toggle Category:",
               row.original.productId,
-              !isActive
-            )
-          }
-          className={`px-3 py-1 rounded-full text-xs font-semibold transition
-            ${
-              isActive
-                ? "bg-green-100 text-green-700"
-                : "bg-red-100 text-red-700"
-            }`}
-        >
-          {isActive ? "Active" : "Inactive"}
-        </button>
+              newValue
+            );
+
+            // 🔌 API call later
+            // updateCategoryStatus(row.original.categoryId, newValue)
+          }}
+        />
       );
     },
   },

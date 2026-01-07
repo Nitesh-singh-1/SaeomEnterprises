@@ -1,7 +1,7 @@
 "use client";
 import Sidebar from "@/app/components/admin/Sidebar";
 import { productColumn } from "@/app/components/Datatable/columns";
-import DataTable from "@/app/components/Datatable/DataTable";
+import { DataTable } from "@/app/components/Datatable/DataTable"
 import { addCategory, getAllProduct, getCategories } from "@/lib/services/fileservice";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -44,7 +44,7 @@ export default function Product() {
         };
         getAProduct();
     }, [])
-    const handleProductAdd =()=>{
+    const handleProductAdd = () => {
         router.push('/admin/product/AddProduct')
     }
 
@@ -70,32 +70,35 @@ export default function Product() {
                         </p>
                     </div>
 
-                    <button onClick={handleProductAdd} className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg font-semibold flex items-center gap-2">
+                    {/* <button onClick={handleProductAdd} className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg font-semibold flex items-center gap-2">
                         ➕ Add New Product
+                    </button> */}
+                    {/* <div className="flex justify-end gap-3 pt-6 border-t"> */}
+                    <button
+                        //disabled={saving}
+                        onClick={handleProductAdd}
+                        className="px-6 py-2.5 rounded-lg bg-blue-600 text-white text-sm font-medium
+                   hover:bg-blue-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                        { "Add Product"}
                     </button>
+                    {/* </div> */}
                 </div>
 
-                {/* FILTERS */}
-                <div className="bg-white p-4 rounded-xl border flex gap-4 mb-6">
-                    <input
-                        placeholder="Search products by name..."
-                        className="flex-1 border rounded-lg px-4 py-2"
-                    />
 
-                    <select className="border rounded-lg px-4 py-2">
-                        <option>All Statuses</option>
-                    </select>
-
-                    <select className="border rounded-lg px-4 py-2">
-                        <option>Sort by Date</option>
-                    </select>
-                </div>
 
                 {/* TABLE */}
                 <DataTable
                     data={products}
                     columns={productColumn}
-                    loading={false}
+                    searchColumn="productName"
+                    searchPlaceholder="Search Product"
+                    linkColumn={{
+                        columnId: "productName",
+                        getHref: (row) => `/admin/product/AddProduct?productId=${row.productId}`,
+                    }}
+
+                //loading={false}
                 />
 
                 {/* INFO CARDS */}

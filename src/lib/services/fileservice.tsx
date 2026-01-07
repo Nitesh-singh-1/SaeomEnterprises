@@ -30,3 +30,12 @@ export function AddProductSave(payload:FormData){
     return postProtectedFormData ("api/Product",payload);
 }
 
+export async function getProductByID(payload:any) {
+  return postPublic(`api/Product/getProductByID`,payload);
+}
+
+export async function updateProduct(payload:any) {
+  return postProtected(`api/Product/updateProduct`,payload);
+}
+
+

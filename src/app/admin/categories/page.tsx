@@ -1,6 +1,7 @@
 "use client";
 import Sidebar from "@/app/components/admin/Sidebar";
-import DataTable from "@/app/components/Datatable/DataTable";
+// import DataTable from "@/app/components/Datatable/DataTable";
+import { DataTable } from "@/app/components/Datatable/DataTable"
 import { categoryColumns } from "@/app/components/Datatable/columns";
 import { useEffect, useState } from "react";
 import { addCategory, getCategories } from "@/lib/services/fileservice";
@@ -84,33 +85,35 @@ export default function CategoriesPage() {
             </p>
           </div>
 
-          <button onClick={() => setShowModal(true)} className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg font-semibold flex items-center gap-2">
+          {/* <button onClick={() => setShowModal(true)} className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg font-semibold flex items-center gap-2">
             ➕ Add New Category
-          </button>
+          </button> */}
+           <button
+                       
+                        onClick={() => setShowModal(true)}
+                        className="px-6 py-2.5 rounded-lg bg-blue-600 text-white text-sm font-medium
+                   hover:bg-blue-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                        {"Add Category"}
+                    </button>
         </div>
 
-        {/* FILTERS */}
-        <div className="bg-white p-4 rounded-xl border flex gap-4 mb-6">
-          <input
-            placeholder="Search categories by name..."
-            className="flex-1 border rounded-lg px-4 py-2"
-          />
 
-          <select className="border rounded-lg px-4 py-2">
-            <option>All Statuses</option>
-          </select>
-
-          <select className="border rounded-lg px-4 py-2">
-            <option>Sort by Date</option>
-          </select>
-        </div>
 
         {/* TABLE */}
-        <DataTable
+        {/* <DataTable
           data={categories}
           columns={categoryColumns}
-          loading={false}
-        />
+          //loading={false}
+        /> */}
+        <DataTable
+                            data={categories}
+                            columns={categoryColumns}
+                            searchColumn="categoryName"
+                            searchPlaceholder = "Search Category"
+        
+                            //loading={false}
+                        />
 
         {/* INFO CARDS */}
         <div className="grid md:grid-cols-3 gap-6 mt-10">
