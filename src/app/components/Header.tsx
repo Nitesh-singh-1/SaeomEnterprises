@@ -11,7 +11,7 @@ export default function Header() {
                     <div className="size-8 bg-primary rounded-lg flex items-center justify-center text-white font-bold">
                         🏠
                     </div>
-                    <h2 className="font-bold text-lg">Saeom Enterprises</h2>
+                    <h2 className="font-bold text-lg">Saieom Enterprises</h2>
                 </div>
 
                 <nav className="hidden md:flex gap-8 items-center">
@@ -23,14 +23,14 @@ export default function Header() {
           </Link>
 
           <Link
-            href="/products"
+            href="/product"
             className="text-sm font-medium hover:text-primary transition"
           >
             Products
           </Link>
 
           <Link
-            href="/why-us"
+            href="/whyus"
             className="text-sm font-medium hover:text-primary transition"
           >
             Why Us

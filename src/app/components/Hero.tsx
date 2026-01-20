@@ -1,4 +1,11 @@
+'use client';
+import { useRouter } from "next/navigation";
 export default function Hero() {
+
+  const router = useRouter();
+  const handleviewProduct = () => {
+    router.push('/product')
+}
   return (
     <section
       className="min-h-[600px] flex items-center justify-center bg-cover bg-center text-white"
@@ -21,7 +28,7 @@ export default function Hero() {
         </p>
 
         <div className="flex gap-4 justify-center">
-          <button className="bg-primary text-white bg-[#195de6] px-8 py-3 rounded-lg font-bold">
+          <button onClick={handleviewProduct} className="bg-primary text-white bg-[#195de6] px-8 py-3 rounded-lg font-bold">
             View Products
           </button>
           <button className="bg-white text-black px-8 py-3 rounded-lg font-bold">

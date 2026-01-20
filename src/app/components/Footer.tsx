@@ -14,7 +14,7 @@ export default function Footer() {
               🏗
             </div>
             <h3 className="text-white font-bold text-lg">
-             Saeom Enterprises
+             Saieom Enterprises
             </h3>
           </div>
 
@@ -54,7 +54,7 @@ export default function Footer() {
           <h4 className="text-white font-bold mb-6">Contact Us</h4>
           <ul className="space-y-4 text-sm">
             <li>📍 123 Industrial Park Drive, Sector 45</li>
-            <li>📞 +1 (555) 123-4567</li>
+            <li>📞 +1 (91) 123-4567</li>
             <li>✉ sales@saiomcabins.co</li>
             <li>⏰ Mon – Fri: 8:00 AM – 6:00 PM</li>
           </ul>

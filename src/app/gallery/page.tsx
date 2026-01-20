@@ -86,12 +86,28 @@ export default function GalleryPage() {
               Explore our portfolio of custom prefabricated structures, from
               remote eco-cabins to fully operational commercial units.
             </p>
-            <Link
+            {/* <Link
               href="/catalog"
               className="inline-block mt-8 bg-blue-700 px-6 py-3 rounded-lg font-bold hover:bg-blue-700 transition"
             >
               View Catalog →
-            </Link>
+            </Link> */}
+            <div className="flex flex-wrap justify-center gap-4 mt-8">
+  <Link
+    href="/catalog"
+    className="bg-blue-700 text-white px-6 py-3 rounded-lg font-bold hover:bg-blue-800 transition"
+  >
+    View Catalog →
+  </Link>
+
+  <a
+    href="/brochure/Saieom_Enterprises_Broucher.pdf"
+    download
+    className="bg-white/90 text-gray-900 px-6 py-3 rounded-lg font-bold border hover:bg-gray-100 transition"
+  >
+    Download Brochure
+  </a>
+</div>
           </div>
         </div>
 
