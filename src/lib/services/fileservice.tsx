@@ -38,4 +38,7 @@ export async function updateProduct(payload:any) {
   return postProtected(`api/Product/updateProduct`,payload);
 }
 
+// export async function getAllProduct(){
+
+// }
 

@@ -1,4 +1,5 @@
-const API_BASE_URL = "https://localhost:7257/";
+// const API_BASE_URL = "https://localhost:7257/";
+import { API_BASE_URL } from "@/config/apiurl";
 
 // 🔓 Public API (NO AUTH)
 export async function postPublic<T>(

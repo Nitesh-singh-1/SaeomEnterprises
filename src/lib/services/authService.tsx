@@ -1,7 +1,8 @@
-const API_BASE_URL = "https://localhost:7257";
+// const API_BASE_URL = "https://localhost:7257";
+import { API_BASE_URL } from "@/config/apiurl";
 
 export async function login(payload:any) {
-  const res = await fetch(`${API_BASE_URL}/api/auth/login`, {
+  const res = await fetch(`${API_BASE_URL}api/auth/login`, {
     method: "POST",
     credentials: "include",
     headers: {

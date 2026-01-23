@@ -123,3 +123,58 @@
     @apply bg-background text-foreground;
   }
 }
+
+.swal2-popup {
+  width: 320px !important;
+  padding: 1.25rem !important;
+  border-radius: 0.75rem !important;
+  font-family: inherit !important;
+}
+
+/* Title */
+.swal2-title {
+  font-size: 1.1rem !important;
+  font-weight: 600 !important;
+  margin: 0.25rem 0 !important;
+}
+
+/* Text */
+.swal2-html-container {
+  font-size: 0.9rem !important;
+  line-height: 1.4 !important;
+  margin-top: 0.25rem !important;
+  color: #4b5563 !important; /* gray-600 */
+}
+
+/* Icon */
+.swal2-icon {
+  transform: scale(0.75) !important;
+  margin: 0.75rem auto 0.5rem auto !important;
+}
+
+/* Button */
+.swal2-confirm {
+  padding: 0.4rem 1.25rem !important;
+  font-size: 0.9rem !important;
+  border-radius: 0.5rem !important;
+}
+
+/* Remove extra spacing SweetAlert adds */
+.swal2-actions {
+  margin-top: 0.75rem !important;
+}
+
+/* Prevent tall modal */
+.swal2-height-auto {
+  height: auto !important;
+}
+
+/* customSelect */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none; /* IE & Edge */
+  scrollbar-width: none; /* Firefox */
+}

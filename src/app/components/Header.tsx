@@ -1,56 +1,79 @@
 "use client";
+import { useState } from "react";
 import Link from "next/link";
 
 export default function Header() {
-  
+  const [open, setOpen] = useState(false);
 
-    return (
-        <header className="sticky top-0 z-50 bg-surface-light dark:bg-surface-dark border-b border-gray-200 dark:border-gray-800">
-            <div className="max-w-[1280px] bg-[#ffffff] mx-auto px-4 h-16 flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                    <div className="size-8 bg-primary rounded-lg flex items-center justify-center text-white font-bold">
-                        🏠
-                    </div>
-                    <h2 className="font-bold text-lg">Saieom Enterprises</h2>
-                </div>
+  return (
+    <>
+      <header className="sticky top-0 z-50 bg-white border-b">
+        <div className="max-w-[1280px] mx-auto px-4 h-16 flex items-center justify-between">
 
-                <nav className="hidden md:flex gap-8 items-center">
-                    <Link
-            href="/"
-            className="text-sm font-medium hover:text-primary transition"
+          {/* Logo */}
+          <div className="flex items-center gap-3">
+            <div className="size-8 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold">
+              🏠
+            </div>
+            <h2 className="font-bold text-lg">Saieom Enterprises</h2>
+          </div>
+
+          {/* Desktop Nav */}
+          <nav className="hidden md:flex gap-8 items-center">
+            <Link href="/">Home</Link>
+            <Link href="/product">Products</Link>
+            <Link href="/whyus">Why Us</Link>
+            <Link href="/gallery">Gallery</Link>
+            <Link
+              href="/contactus"
+              className="bg-blue-700 text-white px-5 py-2 rounded-lg font-bold"
+            >
+              Get a Quote
+            </Link>
+          </nav>
+
+          {/* Hamburger */}
+          <button
+            className="md:hidden text-2xl"
+            onClick={() => setOpen(true)}
           >
-            Home
-          </Link>
+            ☰
+          </button>
+        </div>
+      </header>
 
-          <Link
-            href="/product"
-            className="text-sm font-medium hover:text-primary transition"
-          >
-            Products
-          </Link>
+      {/* Overlay */}
+      {open && (
+        <div
+          className="fixed inset-0 bg-black/40 z-40"
+          onClick={() => setOpen(false)}
+        />
+      )}
 
-          <Link
-            href="/whyus"
-            className="text-sm font-medium hover:text-primary transition"
-          >
-            Why Us
-          </Link>
+      {/* Mobile Sidebar */}
+      <div
+        className={`fixed top-0 right-0 h-full w-64 bg-white z-50 transform transition-transform duration-300
+        ${open ? "translate-x-0" : "translate-x-full"}`}
+      >
+        <div className="p-4 flex justify-between items-center border-b">
+          <h3 className="font-bold">Menu</h3>
+          <button onClick={() => setOpen(false)}>✕</button>
+        </div>
 
-          <Link
-            href="/gallery"
-            className="text-sm font-medium hover:text-primary transition"
-          >
-            Gallery
-          </Link>
-
+        <nav className="flex flex-col p-4 gap-4">
+          <Link href="/" onClick={() => setOpen(false)}>Home</Link>
+          <Link href="/product" onClick={() => setOpen(false)}>Products</Link>
+          <Link href="/whyus" onClick={() => setOpen(false)}>Why Us</Link>
+          <Link href="/gallery" onClick={() => setOpen(false)}>Gallery</Link>
           <Link
             href="/contactus"
-            className="bg-blue-700 text-white px-5 py-2 rounded-lg font-bold hover:bg-blue-700 transition"
+            onClick={() => setOpen(false)}
+            className="bg-blue-700 text-white px-4 py-2 rounded-lg text-center"
           >
             Get a Quote
           </Link>
-                </nav>
-            </div>
-        </header>
-    );
+        </nav>
+      </div>
+    </>
+  );
 }

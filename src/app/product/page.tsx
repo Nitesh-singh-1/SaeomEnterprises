@@ -47,7 +47,7 @@ import { useEffect, useState } from "react";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import Hero from "../components/Hero";
-
+import { API_BASE_URL } from "@/config/apiurl";
 export interface Product {
   productId: number;
   productName: string;
@@ -59,7 +59,7 @@ export interface Product {
   primaryImage: string;
 }
 
-const IMAGE_BASE_URL = "https://localhost:7257/"; 
+// const IMAGE_BASE_URL = "https://localhost:7257/"; 
 // example: https://api.yoursite.com/
 
 export default function ProductPublic() {
@@ -115,7 +115,7 @@ export default function ProductPublic() {
             {/* Image */}
             <div className="h-56 w-full overflow-hidden bg-gray-100">
               <img
-                src={`${IMAGE_BASE_URL}${product.primaryImage}`}
+                src={`${API_BASE_URL}${product.primaryImage}`}
                 alt={product.productName}
                 className="h-full w-full object-cover"
               />

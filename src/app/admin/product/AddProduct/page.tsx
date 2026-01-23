@@ -3,7 +3,7 @@ import Sidebar from "@/app/components/admin/Sidebar";
 import { AddProductSave, getCategories, getProductByID, updateProduct } from "@/lib/services/fileservice";
 import { useEffect, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
-
+import { API_BASE_URL } from "@/config/apiurl";
 export interface Category {
     categoryId: number;
     categoryName: string;
@@ -23,7 +23,8 @@ export default function AddProduct() {
     const searchParams = useSearchParams();
     const productId = searchParams.get("productId");
     const isEditMode = !!productId;
-    const API_BASE_URL = "https://localhost:7257/";
+    // const API_BASE_URL = "https://localhost:7257/";
+    
     const handleChange = (
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
     ) => {

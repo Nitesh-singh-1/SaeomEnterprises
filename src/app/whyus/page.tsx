@@ -1,8 +1,15 @@
 "use client";
 
+import Header from "../components/Header";
+
 export default function WhyUs() {
   return (
+    <div>
+
+    
+    <Header />
     <section className="py-20 bg-white">
+
       <div className="max-w-[1280px] mx-auto px-4 grid lg:grid-cols-2 gap-16 items-center">
         
         {/* LEFT CONTENT */}
@@ -104,5 +111,6 @@ export default function WhyUs() {
 
       </div>
     </section>
+    </div>
   );
 }

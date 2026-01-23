@@ -5,7 +5,7 @@ export default function Footer() {
     <footer className="bg-[#0e1117] text-gray-400">
       
       {/* MAIN FOOTER */}
-      <div className="max-w-[1280px] mx-auto px-4 py-20 grid md:grid-cols-3 gap-16">
+      <div className="max-w-[1280px] mx-auto px-4 py-20 grid md:grid-cols-2 gap-16">
         
         {/* COMPANY INFO */}
         <div>
@@ -38,7 +38,7 @@ export default function Footer() {
         </div>
 
         {/* QUICK LINKS */}
-        <div>
+        {/* <div>
           <h4 className="text-white font-bold mb-6">Quick Links</h4>
           <ul className="space-y-4 text-sm">
             <li>Products Catalog</li>
@@ -47,15 +47,16 @@ export default function Footer() {
             <li>Sustainability Policy</li>
             <li>Careers</li>
           </ul>
-        </div>
+        </div> */}
 
         {/* CONTACT */}
         <div>
           <h4 className="text-white font-bold mb-6">Contact Us</h4>
           <ul className="space-y-4 text-sm">
-            <li>📍 123 Industrial Park Drive, Sector 45</li>
-            <li>📞 +1 (91) 123-4567</li>
-            <li>✉ sales@saiomcabins.co</li>
+            <li>📍 House No. 2213, Near Siddhivinayak Kata, Patil Compound,
+Behind Prince Dhaba, Pimpri Dahisar – 400612</li>
+            <li>📞 +91-91362 58447 / 92266 23329</li>
+            <li>✉ Saieomenterprise@gmail.com</li>
             <li>⏰ Mon – Fri: 8:00 AM – 6:00 PM</li>
           </ul>
         </div>
