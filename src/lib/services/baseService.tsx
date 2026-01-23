@@ -1,4 +1,4 @@
-const API_BASE_URL = "https://localhost:7257/";
+const API_BASE_URL = "http://147.93.152.38:8080/";
 
 // 🔓 Public API (NO AUTH)
 export async function postPublic<T>(
